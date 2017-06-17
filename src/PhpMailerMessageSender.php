@@ -24,7 +24,8 @@ class PhpMailerMessageSender implements MessageSenderInterface
         $this->mailer->Body = $message->getContent();
         foreach ($message->getRecipients() as $recipient) {
             $this->mailer->addAddress($recipient->getContactDetails()->getEmail(), $recipient->getName());
-            if (!$this->mailer->send()) {
+            $hasSent = $this->mailer->send();
+            if (!$hasSent) {
                 throw new \Exception($this->mailer->ErrorInfo);
             }
 

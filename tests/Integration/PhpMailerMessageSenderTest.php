@@ -20,10 +20,11 @@ class PhpMailerMessageSenderTest extends TestCase
         $this->phpMailer->isSMTP();
         $this->phpMailer->SMTPDebug = 1;
         $this->phpMailer->SMTPAuth = true;
+        $this->phpMailer->SMTPSecure = 'ssl';
         $this->phpMailer->Mailer = 'gmail';
         $this->phpMailer->Host = 'smpt.gmail.com';
-        $this->phpMailer->Port = 586;
-        $this->phpMailer->SMTPSecure = 'tls';
+        $this->phpMailer->Port = 465;
+        $this->phpMailer->IsHTML(true);
         $this->phpMailer->Username = getenv('GMAIL_USERNAME');
         $this->phpMailer->Password = getenv('GMAIL_PASSWORD');
         $this->phpMailer->setFrom(getenv('GMAIL_EMAIL_ADDRESS'), 'Tom Stuttard');

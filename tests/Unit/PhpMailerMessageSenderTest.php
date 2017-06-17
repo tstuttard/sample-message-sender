@@ -17,7 +17,7 @@ class PhpMailerMessageSenderTest extends TestCase
     {
         $recipients = new Recipients($this->recipientOne(), $this->recipientTwo());
 
-        $message = new Message('Hello from test.', $recipients);
+        $message = new Message('Email from test.', $recipients);
         $phpMailerMock = $this->getMockBuilder(\PHPMailer::class)
                               ->disableOriginalConstructor()
                               ->setMethods(['send'])
@@ -25,7 +25,8 @@ class PhpMailerMessageSenderTest extends TestCase
 
 
         $phpMailerMock->expects($this->exactly(count($recipients)))
-                      ->method('send');
+                      ->method('send')
+                      ->willReturn(true);
 
         $emailSender = new PhpMailerMessageSender($phpMailerMock);
 

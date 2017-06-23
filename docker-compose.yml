@@ -1,0 +1,17 @@
+version: '2'
+services:
+  webserver:
+    image: phpstorm/php-71-apache-xdebug
+    ports:
+      - "80:80"
+    volumes:
+      - .:/var/www/html
+      - ./docker/apache/vhost.conf:/etc/apache2/sites-enabled/000-default.conf
+    environment:
+      XDEBUG_CONFIG: remote_host=192.168.6.73
+  mysql:
+      image: phpstorm/mysql
+      ports:
+        - "33306:3306"
+      volumes:
+        - ./data:/var/lib/mysql

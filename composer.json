@@ -10,11 +10,20 @@
         "j7mbo/twitter-api-php": "^1.0",
         "zendframework/zend-expressive": "^2.0",
         "zendframework/zend-expressive-fastroute": "^2.0",
-        "zendframework/zend-servicemanager": "^3.3"
+        "zendframework/zend-servicemanager": "^3.3",
+        "behat/behat": "^3.3",
+        "roave/security-advisories": "dev-master",
+        "zendframework/zend-component-installer": "^1.0",
+        "zendframework/zend-config-aggregator": "^1.0",
+        "zendframework/zend-expressive-helpers": "^4.0",
+        "zendframework/zend-stdlib": "^3.1",
+        "zendframework/zend-expressive-router": "^2.1",
+        "zendframework/zend-expressive-platesrenderer": "^1.3"
     },
     "autoload": {
         "psr-4": {
-            "TomSample\\": "src/"
+            "TomSample\\": "src/",
+            "App\\": "src/App/"
         }
     },
     "autoload-dev": {
@@ -23,6 +32,29 @@
         }
     },
     "require-dev": {
-        "phpunit/phpunit": "^6.2"
+        "phpunit/phpunit": "^6.2",
+        "squizlabs/php_codesniffer": "^2.8.1",
+        "zfcampus/zf-development-mode": "^3.1",
+        "zendframework/zend-expressive-tooling": "^0.4.1",
+        "filp/whoops": "^2.1.7"
+    },
+    "scripts": {
+        "post-create-project-cmd": [
+            "@development-enable"
+        ],
+        "development-disable": "zf-development-mode disable",
+        "development-enable": "zf-development-mode enable",
+        "development-status": "zf-development-mode status",
+        "check": [
+            "@cs-check",
+            "@test"
+        ],
+        "clear-config-cache": "php bin/clear-config-cache.php",
+        "cs-check": "phpcs",
+        "cs-fix": "phpcbf",
+        "serve": "php -S 0.0.0.0:8080 -t public public/index.php",
+        "test": "phpunit --colors=always",
+        "test-coverage": "phpunit --colors=always --coverage-clover clover.xml",
+        "upload-coverage": "coveralls -v"
     }
 }

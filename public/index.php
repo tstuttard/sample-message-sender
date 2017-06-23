@@ -1,18 +1,18 @@
 <?php
 
-use Interop\Http\ServerMiddleware\DelegateInterface;
-use Zend\Diactoros\Response\TextResponse;
-use Zend\Expressive\AppFactory;
-
 chdir(dirname(__DIR__));
-require __DIR__ . '/../vendor/autoload.php';
-
-$app = AppFactory::create();
-
-$app->get('/', function ($request, DelegateInterface $delegate) {
-    return new TextResponse('Hello, world!');
+require 'vendor/autoload.php';
+/**
+ * Self-called anonymous function that creates its own scope and keep the global namespace clean.
+ */
+call_user_func(function () {
+    /** @var \Interop\Container\ContainerInterface $container */
+    $container = require 'config/container.php';
+    /** @var \Zend\Expressive\Application $app */
+    $app = $container->get(\Zend\Expressive\Application::class);
+    // Import programmatic/declarative middleware pipeline and routing
+    // configuration statements
+    require 'config/pipeline.php';
+    require 'config/routes.php';
+    $app->run();
 });
-
-$app->pipeRoutingMiddleware();
-$app->pipeDispatchMiddleware();
-$app->run();
